@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Animation</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        #house {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(to top, #8B4513 0%, #FFD700 100%);
+            position: fixed;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: height 0.3s ease, opacity 0.3s ease;
+        }
+
+        .scrollable-content {
+            height: 2000px; /* Enough height to scroll */
+            background: linear-gradient(to bottom, #87CEEB, #4682B4);
+        }
+    </style>
+</head>
+<body>
+    <div id="house"></div>
+    <div class="scrollable-content"></div>
+    <script>
+        const house = document.getElementById('house');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const totalHeight = document.body.scrollHeight - windowHeight;
+
+            // Calculate the height of the house based on scroll
+            const height = Math.min(200, (scrollTop / totalHeight) * 400); // Adjust height as needed
+            house.style.height = `${height}px`;
+            house.style.opacity = 1 - (scrollTop / totalHeight); // Fade out as you scroll down
+        });
+    </script>
+</body>
+</html>
